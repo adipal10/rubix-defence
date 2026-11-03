@@ -443,8 +443,8 @@ const cp=document.getElementById('copy');cp&&cp.addEventListener('click',async()
   const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
   renderer.setPixelRatio(Math.min(devicePixelRatio,2));
   const scene=new THREE.Scene();
-  const camera=new THREE.PerspectiveCamera(46,1,0.1,100);
-  camera.position.set(0,1.7,5.9);camera.lookAt(0,0.05,0);
+  const camera=new THREE.PerspectiveCamera(48,1,0.1,100);
+  camera.position.set(0,1.0,4.6);camera.lookAt(0,0.15,0);
   scene.add(new THREE.AmbientLight(0x16281d,0.75));
   const dl=new THREE.DirectionalLight(0xdffbe8,0.8);dl.position.set(4,6,3);scene.add(dl);
   const pl=new THREE.PointLight(0x2bff7a,2.2,24);pl.position.set(-3,2,3);scene.add(pl);
@@ -482,17 +482,18 @@ const cp=document.getElementById('copy');cp&&cp.addEventListener('click',async()
   const lens=new THREE.Mesh(new THREE.SphereGeometry(0.1,16,12),glow);lens.position.set(0,-0.31,0.17);drone.add(lens);
   // skids
   [-0.62,0.62].forEach(x=>{const sk=new THREE.Mesh(new THREE.BoxGeometry(0.05,0.05,1.55),black2);sk.position.set(x,-0.48,0);drone.add(sk);[0.58,-0.58].forEach(z=>{const leg=new THREE.Mesh(new THREE.BoxGeometry(0.05,0.34,0.05),black2);leg.position.set(x,-0.31,z);drone.add(leg);});});
-  drone.scale.setScalar(1.55);
-  drone.position.set(0,0,0); drone.rotation.x=0.3;
+  drone.scale.setScalar(2.35);
+  drone.position.set(0,0.1,0); drone.rotation.x=0.3;
   scene.add(drone);
 
   // faint ground grid (green)
-  const grid=new THREE.GridHelper(32,32,0x1c7a44,0x0e2a1b);grid.position.y=-2.0;scene.add(grid);
+  const grid=new THREE.GridHelper(44,44,0x1c7a44,0x0e2a1b);grid.position.y=-2.6;scene.add(grid);
 
   // interaction: drag to orbit the drone
   let tx=0.35,ty=0,dragX=0.35,dragY=0,down=false,px=0,py=0,auto=true;
-  function setSize(){const r=canvas.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix();}
-  setSize();addEventListener('resize',setSize,{passive:true});
+  function setSize(){const host=canvas.parentElement;const w=host.clientWidth||innerWidth,h=host.clientHeight||innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+  setSize();requestAnimationFrame(setSize);addEventListener('load',setSize);addEventListener('resize',setSize,{passive:true});
+  if(window.ResizeObserver){try{new ResizeObserver(setSize).observe(canvas.parentElement);}catch(e){}}
   canvas.addEventListener('pointerdown',e=>{down=true;auto=false;px=e.clientX;py=e.clientY;canvas.setPointerCapture(e.pointerId);});
   canvas.addEventListener('pointermove',e=>{if(!down)return;dragY+=(e.clientX-px)*0.01;dragX+=(e.clientY-py)*0.01;dragX=Math.max(-0.9,Math.min(1.1,dragX));px=e.clientX;py=e.clientY;});
   const release=()=>{down=false;};
