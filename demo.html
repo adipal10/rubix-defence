@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rubix Defence — Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Standalone DEMO build — hotlinks real public-domain media (Wikimedia Commons / US military).
+   Single dark "defence" theme; aerospace-orange signal. Open in Chrome for images + video. */
+:root{
+  --bg:#0a0e11; --panel:#141a1f; --panel-2:#1b232a; --line:#263039; --line-2:#33404a;
+  --fg:#e9edf0; --mut:#92a0a9; --dim:#63727c; --sig:#e4592a; --steel:#6fa3bc;
+  --maxw:1240px;
+  --f-disp:"Saira","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--f-disp);font-weight:600;margin:0;line-height:1.05;text-wrap:balance}
+p{margin:0}
+.ey{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--sig)}
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:rgba(10,14,17,.72);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.85rem}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:var(--f-disp);font-weight:700;font-size:1.16rem;letter-spacing:.16em}
+.brand .sub{font-family:var(--f-mono);font-size:.56rem;letter-spacing:.24em;color:var(--mut);font-weight:400}
+.nav-links{display:flex;gap:1.6rem;font-family:var(--f-mono);font-size:.78rem;color:var(--mut)}
+.nav-links a:hover{color:var(--sig)}
+.nav-cta{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.08em;background:var(--sig);color:#fff;padding:.55rem 1rem;border-radius:2px;text-transform:uppercase}
+@media(max-width:860px){.nav-links{display:none}}
+
+/* HERO with video bg */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;background:
+  linear-gradient(90deg,rgba(8,11,14,.94),rgba(8,11,14,.6) 45%,rgba(8,11,14,.35)),
+  linear-gradient(0deg,rgba(8,11,14,.9),transparent 40%)}
+.hero-in{position:relative;z-index:2;padding-block:5rem}
+.hero-tag{display:inline-flex;align-items:center;gap:.6rem;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05);border-radius:2px;padding:.4rem .85rem;margin-bottom:1.6rem;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.16em;color:#cdd5d1}
+.hero-tag .dot{width:7px;height:7px;background:var(--sig);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(2.6rem,6.8vw,5.4rem);letter-spacing:-.015em;font-weight:700;margin-bottom:1.3rem;max-width:16ch}
+.hero h1 .sig{color:var(--sig)}
+.hero p.lede{max-width:52ch;color:#c0c9cd;font-size:clamp(1.05rem,1.7vw,1.25rem)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.btn{font-family:var(--f-mono);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:.85rem 1.6rem;border-radius:2px;display:inline-flex;gap:.5rem;transition:.2s;cursor:pointer;border:1px solid transparent}
+.btn-p{background:var(--sig);color:#fff}
+.btn-p:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn-g{border-color:rgba(255,255,255,.3);color:#fff}
+.btn-g:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+
+/* CAPABILITY TILES */
+.captiles{background:var(--panel-2);border-bottom:1px solid var(--line)}
+.captiles .wrap{display:grid;grid-template-columns:repeat(6,1fr);padding:0}
+.ctile{display:flex;flex-direction:column;align-items:center;gap:.65rem;text-align:center;padding:1.7rem .7rem;border-right:1px solid var(--line);transition:.2s}
+.ctile:last-child{border-right:0}
+.ctile:hover{background:var(--panel)}
+.ctile svg{width:30px;height:30px;stroke:var(--steel);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:.2s}
+.ctile:hover svg{stroke:var(--sig)}
+.ctile span{font-family:var(--f-mono);font-size:.7rem;color:var(--mut);line-height:1.3}
+@media(max-width:860px){.captiles .wrap{grid-template-columns:repeat(3,1fr)}.ctile:nth-child(3n){border-right:0}.ctile:nth-child(-n+3){border-bottom:1px solid var(--line)}}
+@media(max-width:480px){.captiles .wrap{grid-template-columns:repeat(2,1fr)}.ctile:nth-child(odd){border-right:1px solid var(--line)}.ctile:nth-child(even){border-right:0}.ctile:nth-child(3){border-right:1px solid var(--line)}}
+
+/* STATS */
+.band{background:var(--panel-2);border-bottom:1px solid var(--line)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:2rem 1.5rem;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat svg{width:26px;height:26px;stroke:var(--sig);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin-bottom:1rem}
+.stat .n{font-family:var(--f-disp);font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.stat .n span{color:var(--sig)}
+.stat .l{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-top:.6rem}
+@media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2n){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+/* SECTIONS */
+section{padding-block:clamp(3.8rem,8vh,6.2rem)}
+.sec-head{max-width:740px;margin-bottom:2.6rem}
+.sec-head h2{font-size:clamp(1.9rem,4.2vw,3rem);margin:.7rem 0 .9rem;letter-spacing:-.01em}
+.sec-head p{color:var(--mut);font-size:1.02rem;max-width:62ch}
+.idx{font-family:var(--f-mono);font-size:.7rem;color:var(--dim);letter-spacing:.2em}
+
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.pgrid.two{grid-template-columns:repeat(2,1fr)}
+@media(max-width:940px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.pgrid,.pgrid.two{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);overflow:hidden;transition:.25s;display:flex;flex-direction:column}
+.card:hover{border-color:var(--steel);transform:translateY(-3px)}
+.card .vis{height:170px;background-size:cover;background-position:center;position:relative;border-bottom:1px solid var(--line);filter:saturate(.9)}
+.card .vis::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(20,26,31,.75),rgba(20,26,31,.15))}
+.card .vis .code{position:absolute;top:.7rem;left:.8rem;z-index:2;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.14em;color:#cfd6d9;background:rgba(10,14,17,.6);padding:.2rem .5rem;border:1px solid rgba(255,255,255,.12)}
+.card .vis .chip{position:absolute;top:.7rem;right:.8rem;z-index:2;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.24rem .5rem;background:var(--sig);color:#fff}
+.card .vis .chip.ghost{background:rgba(10,14,17,.6);color:var(--steel);border:1px solid var(--line-2)}
+.card .body{padding:1.4rem 1.4rem 1.3rem;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:1.26rem;margin-bottom:.3rem}
+.card .dom{font-family:var(--f-mono);font-size:.68rem;color:var(--sig);letter-spacing:.08em;margin-bottom:.8rem;text-transform:uppercase}
+.card p{color:var(--mut);font-size:.9rem}
+.card .spex{display:flex;flex-wrap:wrap;gap:.4rem .9rem;margin-top:auto;padding-top:1.1rem}
+.card .spex span{font-family:var(--f-mono);font-size:.66rem;color:var(--dim)}
+.card .spex b{color:var(--mut);font-weight:500}
+
+/* FOOTAGE band */
+.footage{position:relative;border-block:1px solid var(--line);background:#06090b}
+.footage video{width:100%;max-height:70vh;object-fit:cover;display:block}
+.footage .cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:1.4rem 0;background:linear-gradient(0deg,rgba(6,9,11,.9),transparent)}
+.footage .cap .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap}
+.footage h2{font-size:clamp(1.6rem,3.6vw,2.4rem)}
+.footage small{font-family:var(--f-mono);font-size:.68rem;color:var(--mut);letter-spacing:.06em}
+
+/* DOCTRINE */
+.doc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+@media(max-width:820px){.doc-grid{grid-template-columns:1fr}}
+.dcard{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--sig);padding:1.7rem 1.5rem}
+.dcard .num{font-family:var(--f-mono);font-size:.82rem;color:var(--sig)}
+.dcard h3{font-size:1.14rem;margin:.8rem 0 .5rem}
+.dcard p{color:var(--mut);font-size:.89rem}
+
+/* CONTACT */
+.cta{border-top:1px solid var(--line);background:radial-gradient(100% 140% at 50% 0%,rgba(228,89,42,.12),transparent 60%),var(--panel-2);text-align:center;padding-block:clamp(3.4rem,8vh,5.6rem)}
+.cta h2{font-size:clamp(2rem,5vw,3.4rem);margin:1rem auto 1.1rem;max-width:18ch}
+.cta p{color:var(--mut);max-width:54ch;margin:0 auto 2rem}
+.contact-line{display:inline-flex;align-items:center;gap:.7rem;font-family:var(--f-mono);font-size:.92rem;border:1px solid var(--line-2);background:var(--panel);border-radius:3px;padding:.65rem 1rem}
+footer{padding-block:2.4rem;background:var(--bg);border-top:1px solid var(--line)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;align-items:center;font-family:var(--f-mono);font-size:.72rem;color:var(--dim)}
+.credit{color:var(--dim);font-size:.68rem;font-family:var(--f-mono);margin-top:1.2rem;line-height:1.7;max-width:80ch}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.hero-tag .dot{animation:none}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap nav-in">
+  <a class="brand" href="#top">
+    <svg viewBox="0 0 34 34" width="28" height="28"><rect x="2.5" y="2.5" width="29" height="29" rx="3" fill="none" stroke="#e9edf0" stroke-width="1.4"/><path d="M17 9 L24 17 L17 25 L10 17 Z" fill="none" stroke="#e4592a" stroke-width="1.6"/><circle cx="17" cy="17" r="2" fill="#e4592a"/></svg>
+    <span>RUBIX<br><span class="sub">DEFENCE SYSTEMS</span></span>
+  </a>
+  <div class="nav-links"><a href="#sim">Simulation</a><a href="#sa">Awareness</a><a href="#sovereign">Sovereign Stack</a><a href="#drones">Drones</a><a href="#footage">Footage</a></div>
+  <a class="nav-cta" href="#contact">Request Briefing</a>
+</div></nav>
+
+<header class="hero" id="top">
+  <img class="poster" src="https://upload.wikimedia.org/wikipedia/commons/b/b0/MQ-9_Reaper_in_flight_%282007%29.jpg" alt="">
+  <video autoplay muted loop playsinline poster="https://upload.wikimedia.org/wikipedia/commons/b/b0/MQ-9_Reaper_in_flight_%282007%29.jpg">
+    <source src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Aerial_drone_chase_of_a_train.webm" type="video/webm">
+  </video>
+  <div class="wrap hero-in">
+    <span class="hero-tag"><span class="dot"></span> AI × AUTONOMOUS SYSTEMS · INDIGENOUS · OFFLINE-FIRST</span>
+    <h1>Decision-grade autonomy for the <span class="sig">contested edge</span>.</h1>
+    <p class="lede">We build the artificial intelligence, the drones, and the sovereign software that keep working when the network, the GPS and the spectrum are gone.</p>
+    <div class="hero-cta"><a class="btn btn-p" href="#sa">View Systems</a><a class="btn btn-g" href="#drones">Drone Programs</a></div>
+  </div>
+</header>
+
+<div class="captiles"><div class="wrap">
+  <a class="ctile" href="#sa"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Situational<br>Awareness</span></a>
+  <a class="ctile" href="#sa"><svg viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Geospatial<br>Intelligence</span></a>
+  <a class="ctile" href="#drones"><svg viewBox="0 0 24 24"><circle cx="6" cy="7" r="2"/><circle cx="18" cy="7" r="2"/><circle cx="12" cy="17" r="2"/><path d="M6 7l12 0M6 7l6 10M18 7l-6 10"/></svg><span>Swarm<br>Autonomy</span></a>
+  <a class="ctile" href="#drones"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg><span>Logistics<br>UAS</span></a>
+  <a class="ctile" href="#sim"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></svg><span>Combat<br>Simulation</span></a>
+  <a class="ctile" href="#sovereign"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 8-8 11-4.5-3-8-6-8-11V5z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Cyber<br>Shield</span></a>
+</div></div>
+
+<div class="band"><div class="wrap"><div class="stats">
+  <div class="stat"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4z"/><path d="M3 12l9 4 9-4M3 17l9 4 9-4"/></svg><div class="n" data-count="11">0</div><div class="l">Systems built</div></div>
+  <div class="stat"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="M7.7 7.7l8.6 8.6M16.3 7.7l-8.6 8.6"/></svg><div class="n" data-count="4">0</div><div class="l">Drone programs</div></div>
+  <div class="stat"><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5.6 6.1.5-4.6 4 1.4 6-5.4-3.2L6.1 19l1.4-6-4.6-4 6.1-.5z"/></svg><div class="n"><span data-count="100">0</span>%</div><div class="l">Indigenous · offline-capable</div></div>
+  <div class="stat"><svg viewBox="0 0 24 24"><path d="M4 15a4 4 0 014-4 5 5 0 019.5-1.5A3.5 3.5 0 0119 17H8"/><path d="M3 3l18 18"/></svg><div class="n"><span>0</span></div><div class="l">Cloud dependencies</div></div>
+</div></div></div>
+
+<section id="sim"><div class="wrap">
+  <div class="sec-head rv"><span class="idx">01 — SIMULATION &amp; TRAINING</span><h2>Rehearse it in silicon first.</h2><p>Doctrine and crews tested before they are tested in the field.</p></div>
+  <div class="pgrid two">
+    <article class="card rv"><div class="vis" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/1/10/U.S._Navy_Operations_Specialist_Seaman_Destini_Hall_monitors_operations_in_the_combat_information_center_aboard_the_guided_missile_destroyer_USS_Gravely_%28DDG_107%29_in_the_Mediterranean_Sea_May_28%2C_2013_130528-N-KA046-034.jpg')"><span class="code">SIM·01</span><span class="chip">Operational</span></div><div class="body"><h3>War Simulator</h3><div class="dom">Wargaming · Multi-domain</div><p>A high-fidelity engine for modelling engagements and force-on-force scenarios at scale, with adversarial AI, so tactics are proven before a single unit moves.</p><div class="spex"><span><b>Scope:</b> multi-domain</span><span><b>Mode:</b> adversarial AI</span></div></div></article>
+    <article class="card rv"><div class="vis" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/0/03/US_Navy_040803-N-6213R-041_Combat_Direction_Center_%28CDC%29_Operations_Specialist_1st_Class_Greg_Glaeser_of_Chicago%2C_Ill.%2C_monitors_the_surrounding_area_with_the_Identification_Friend_or_Foe_%28IFF%29_system_while_aboard_the_aircraft.jpg')"><span class="code">SIM·02</span><span class="chip">Operational</span></div><div class="body"><h3>Artillery Simulator</h3><div class="dom">Fires · Crew Training</div><p>A ballistics and fire-mission trainer that rehearses gun crews through realistic firing solutions, corrections and terrain — repeatable, instrumented and safe.</p><div class="spex"><span><b>Core:</b> ballistics engine</span><span><b>Use:</b> crew training</span></div></div></article>
+  </div>
+</div></section>
+
+<section id="sa" style="background:var(--panel-2);border-block:1px solid var(--line)"><div class="wrap">
+  <div class="sec-head rv"><span class="idx">02 — PERCEPTION &amp; SITUATIONAL AWARENESS</span><h2>See the whole picture — and prove it.</h2><p>Sensors, imagery and open signals fused into one explorable, uncertainty-aware picture.</p></div>
+  <div class="pgrid">
+    <article class="card rv"><div class="vis" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/0/03/US_Navy_040803-N-6213R-041_Combat_Direction_Center_%28CDC%29_Operations_Specialist_1st_Class_Greg_Glaeser_of_Chicago%2C_Ill.%2C_monitors_the_surrounding_area_with_the_Identification_Friend_or_Foe_%28IFF%29_system_while_aboard_the_aircraft.jpg')"><span class="code">SA·01</span><span class="chip">Flagship</span></div><div class="body"><h3>DRISHTI</h3><div class="dom">SA Monitor · CV + Geospatial</div><p>A multi-camera situational-awareness platform. It fuses many cameras into one global track picture, recovers PTZ pose from the video itself, and places every target on real terrain with ± uncertainty — then predicts motion along the road network.</p><div class="spex"><span><b>Fusion:</b> ≈6–14 m</span><span><b>Edge:</b> ~50 fps</span></div></div></article>
+    <article class="card rv"><div class="vis" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/b/b0/MQ-9_Reaper_in_flight_%282007%29.jpg')"><span class="code">SA·02</span><span class="chip ghost">Field-trialed</span></div><div class="body"><h3>GeoVision</h3><div class="dom">GEOINT · Media Geolocation</div><p>Geolocates a photo or video from its own content through a five-stage pipeline — vision, AI clue extraction, geocoding, a Street-View &amp; satellite verification loop, and an independent cross-check — with an honest uncertainty radius.</p><div class="spex"><span><b>Pipeline:</b> 5-stage verify</span><span><b>Output:</b> pin ± radius</span></div></div></article>
+    <article class="card rv"><div class="vis" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/1/10/U.S._Navy_Operations_Specialist_Seaman_Destini_Hall_monitors_operations_in_the_combat_information_center_aboard_the_guided_missile_destroyer_USS_Gravely_%28DDG_107%29_in_the_Mediterranean_Sea_May_28%2C_2013_130528-N-KA046-034.jpg')"><span class="code">SA·03</span><span class="chip ghost">Field-trialed</span></div><div class="body"><h3>OSINT Recon</h3><div class="dom">Intelligence · Correlation Graph</div><p>Give it a seed — a domain, email, username, phone or IP — and it fans out across connectors, auto-pivots, and collapses everything into one deduped entity graph. Authorized-use gated.</p><div class="spex"><span><b>Model:</b> entity graph</span><span><b>Method:</b> auto-pivot</span></div></div></article>
+  </div>
+</div></section>
+
+<section id="sovereign"><div class="wrap">
+  <div class="sec-head rv"><span class="idx">03 — SOVEREIGN STACK</span><h2>Built to run when nothing else will.</h2><p>Air-gapped by design. Sustainment and cyber-defence that never touch a cloud.</p></div>
+  <div class="pgrid two">
+    <article class="card rv"><div class="vis" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/9/95/MQ-9_Reaper_FARP_%28forward_area_refuelling_point%29.jpg')"><span class="code">SOV·01</span><span class="chip">Operational</span></div><div class="body"><h3>RASAD</h3><div class="dom">Formation Sustainment · Offline</div><p>Station software from Corps to Company for rations, fuel &amp; POL, fleet, predictive maintenance, convoy planning and works. No network: data moves only in AES-256-GCM + Ed25519 signed packets on removable media.</p><div class="spex"><span><b>Crypto:</b> AES-256 + Ed25519</span><span><b>Reach:</b> Corps→Coy</span></div></div></article>
+    <article class="card rv"><div class="vis" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/0/03/US_Navy_040803-N-6213R-041_Combat_Direction_Center_%28CDC%29_Operations_Specialist_1st_Class_Greg_Glaeser_of_Chicago%2C_Ill.%2C_monitors_the_surrounding_area_with_the_Identification_Friend_or_Foe_%28IFF%29_system_while_aboard_the_aircraft.jpg')"><span class="code">SOV·02</span><span class="chip ghost">AI Kavach</span></div><div class="body"><h3>NIRIKSHAK</h3><div class="dom">Cyber-Reasoning Shield</div><p>Autonomous find → patch → prove for defence software. The AI proposes the smallest fix; an independent verifier issues a differential certificate. Graded assurance tiers, a quantum-debt (PQC) migration scanner, air-gapped on one box.</p><div class="spex"><span><b>Trust:</b> certified-only ship</span><span><b>Adds:</b> PQC migration</span></div></div></article>
+  </div>
+</div></section>
+
+<section id="drones" style="background:var(--panel-2);border-block:1px solid var(--line)"><div class="wrap">
+  <div class="sec-head rv"><span class="idx">04 — DRONE PROGRAMS</span><h2>Aircraft that keep flying when the spectrum turns hostile.</h2><p>Autonomy that survives jamming, GPS denial and the loss of any single node.</p></div>
+  <div class="pgrid">
+    <article class="card rv"><div class="vis" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/8/89/MQ-9_Reaper_UAV.jpg')"><span class="code">UAV·01</span><span class="chip ghost">Swarm</span></div><div class="body"><h3>Swarm Drone Network</h3><div class="dom">Interconnected · Autonomous</div><p>Fleets that fly as one — sharing a single tactical picture, re-tasking in flight and holding formation with no pilot per aircraft. Lose a node and the mission self-heals around it.</p><div class="spex"><span><b>Mesh:</b> peer-to-peer</span><span><b>Behaviour:</b> self-healing</span></div></div></article>
+    <article class="card rv"><div class="vis" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/1/12/MQ-9_Reaper_UAV_%28cropped%29.jpg')"><span class="code">UAV·02</span><span class="chip ghost">Contested-RF</span></div><div class="body"><h3>Autonomous Surveillance UAV</h3><div class="dom">ISR · GPS-Denied</div><p>Persistent reconnaissance where there is no network, no GPS and active jamming — navigating on onboard vision and inertial sense, with jam and anti-jam resilience built into the link.</p><div class="spex"><span><b>Nav:</b> visual-inertial</span><span><b>Link:</b> anti-jam</span></div></div></article>
+    <article class="card rv"><div class="vis" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/9/95/MQ-9_Reaper_FARP_%28forward_area_refuelling_point%29.jpg')"><span class="code">UAV·03</span><span class="chip">Operational</span></div><div class="body"><h3>Logistics Drones</h3><div class="dom">Resupply · Heavy-Lift</div><p>Autonomous resupply for forward and hard-to-reach positions — carrying payloads over terrain that wheels can't cross, on scheduled or on-demand sorties.</p><div class="spex"><span><b>Role:</b> last-mile resupply</span><span><b>Ops:</b> autonomous routing</span></div></div></article>
+    <article class="card rv"><div class="vis" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/a/a1/MQ-9_Reaper_during_Exercise_Northern_Strike_2019.png')"><span class="code">UAV·04</span><span class="chip ghost">Precision</span></div><div class="body"><h3>Drone-Drop Correction</h3><div class="dom">Aerial Delivery · Ballistics</div><p>Corrects the release point for aerial payload drops in real time — re-streaming the drone feed and solving the drop ballistics so the load lands on the mark instead of near it.</p><div class="spex"><span><b>Loop:</b> real-time solve</span><span><b>Gain:</b> on-target release</span></div></div></article>
+  </div>
+</div></section>
+
+<div class="footage" id="footage">
+  <video autoplay muted loop playsinline poster="https://upload.wikimedia.org/wikipedia/commons/b/b0/MQ-9_Reaper_in_flight_%282007%29.jpg">
+    <source src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Charlotte%2C_North_Carolina_Night_Drone_Footage_2019.webm" type="video/webm">
+  </video>
+  <div class="cap"><div class="wrap"><div><span class="ey">FIELD FOOTAGE</span><h2>Eyes on, after dark.</h2></div><small>Representative aerial footage · Wikimedia Commons</small></div></div>
+</div>
+
+<section id="doctrine"><div class="wrap">
+  <div class="sec-head rv"><span class="idx">05 — DOCTRINE</span><h2>How we build.</h2></div>
+  <div class="doc-grid">
+    <div class="dcard rv"><div class="num">/ 01</div><h3>Assume the link is gone</h3><p>We design for the worst spectrum day. If a system needs a clean network or a cloud to work, it does not leave the lab.</p></div>
+    <div class="dcard rv"><div class="num">/ 02</div><h3>Prove, don't promise</h3><p>Every geolocation carries its uncertainty; every patch ships only with a certificate. The machine shows its work.</p></div>
+    <div class="dcard rv"><div class="num">/ 03</div><h3>Built here, owned here</h3><p>An indigenous stack, software to airframe, so capability stays sovereign and supportable long after delivery.</p></div>
+  </div>
+</div></section>
+
+<div class="cta" id="contact"><div class="wrap">
+  <span class="ey rv">06 — ENGAGE</span>
+  <h2 class="rv">Let's talk about your mission.</h2>
+  <p class="rv">Briefings, pilots and partnership enquiries for defence and public-sector programs.</p>
+  <div class="contact-line rv"><span>contact@rubixdefence.in</span></div>
+</div></div>
+
+<footer><div class="wrap">
+  <div class="foot"><span class="brand" style="font-family:var(--f-disp);letter-spacing:.14em;font-weight:700;font-size:.95rem">RUBIX DEFENCE</span><span>AI &amp; AUTONOMOUS SYSTEMS · DEFENCE</span><span>© 2026 — DEMO BUILD</span></div>
+  <p class="credit">Imagery &amp; footage are representative placeholders for this demo, sourced from Wikimedia Commons (U.S. military / public domain and Creative Commons contributors) — replace with Rubix's own assets before any public use. Brand name, logo and contact details are placeholders.</p>
+</div></footer>
+
+<script>
+const co=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');co.unobserve(e.target);}})},{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>co.observe(el));
+const nc=new IntersectionObserver((es)=>{es.forEach(e=>{if(!e.isIntersecting)return;nc.unobserve(e.target);const el=e.target,to=+el.dataset.count;let t0=null;const step=(t)=>{t0=t0||t;const p=Math.min((t-t0)/1000,1);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step);};requestAnimationFrame(step);})},{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>nc.observe(el));
+</script>
+</body>
+</html>
